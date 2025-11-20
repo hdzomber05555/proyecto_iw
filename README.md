@@ -20,8 +20,8 @@ Sistema sencillo para controlar productos, existencias y movimientos en tiempo r
 
 ## Instalación (ejemplo)
 ```bash
-git clone https://github.com/usuario/gestor-inventario.git
-cd gestor-inventario
+git clone https://github.com/hdzomber05555/proyecto_iw.git
+cd /proyecto_iw
 cp .env.example .env
 npm install
 npm run migrate
