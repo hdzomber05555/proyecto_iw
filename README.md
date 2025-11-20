@@ -23,7 +23,7 @@ Sistema sencillo para controlar productos, existencias y movimientos en tiempo r
 git clone https://github.com/hdzomber05555/proyecto_iw.git
 cd /proyecto_iw
 cp .env.example .env
-npm install
+npm insta
 npm run migrate
 npm run seed
 npm start
