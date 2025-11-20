@@ -29,3 +29,4 @@ npm run seed
 npm start
 ```
 
+<img src="https://images.ctfassets.net/63bmaubptoky/1OKrqRKhHseguTn87NLjW0/a1ce5f856d0cf407c3ad7b431a1546d2/software-de-gestion-de-inventarios-ES-Capterra-Header.png">
