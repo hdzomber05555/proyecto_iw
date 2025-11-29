@@ -6,22 +6,22 @@ require_once __DIR__ . '/../app/utils.php';
 require_once __DIR__ . '/../app/auth.php';
 require_once __DIR__ . '/../app/csrf.php';
 
-// 1. Inicializamos variables para evitar errores "Undefined variable"
+// Evitar errores
 $error = null;
 $username = '';
 
-// 2. Si ya estoy logueado, me manda directo al panel
+// Si se ah logueado, lo redirecciona al panel
 if (isset($_SESSION['usuario_id'])) {
     redirect('/public/index.php');
 }
 
-// 3. PROCESAR EL FORMULARIO (Cuando le das al botón "Entrar")
+// Procesamos el formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-    // Verificamos seguridad CSRF (Token)
+    // Verificamos seguridad CSRF
     verificar_csrf();
 
-    // Recogemos datos (usando operador fusión null ?? para seguridad)
+    // Recogemos datos del formulario con ?? y trim
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
 
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($username) || empty($password)) {
         $error = "Por favor, rellena todos los campos.";
     } else {
-        // Buscamos el usuario en la BD
+        // Buscamos el usuario en la BD de mysql
         $sql = "SELECT * FROM usuarios WHERE username = :u LIMIT 1";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([':u' => $username]);
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['usuario_id'] = $usuario['id'];
             $_SESSION['username']   = $usuario['username'];
             
-            // Requisito PDF: Preferencia por cookie (ej: tema claro)
+            // Tema claro
             setcookie('tema', 'claro', time() + (86400 * 30), "/");
 
             // Redirigimos al panel principal
