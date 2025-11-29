@@ -44,7 +44,7 @@ try {
         <div class="nav-links">
             <a href="index.php">Inicio</a>
             <a href="#">Productos</a>
-            <a href="#">Reportes</a>
+            <a href="preferencias.php">Preferencias</a>
             <a href="logout.php" class="btn-logout">Cerrar Sesión</a>
         </div>
     </nav>

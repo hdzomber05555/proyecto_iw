@@ -6,13 +6,14 @@ require_once __DIR__ . '/../app/csrf.php';
 
 obligar_login();
 
-// Si enviaron el formulario, guardamos la cookie
+//Si enviaron el formulario, guardamos la cookie
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     verificar_csrf();
 
     $tema = $_POST['tema'];
     
     // Guardamos la cookie por 30 días
+    // setcookie(nombre, valor, expiración, ruta)
     setcookie('tema_preferido', $tema, time() + (86400 * 30), "/");
 
     // Redirigimos al inicio para ver el cambio
@@ -40,7 +41,7 @@ $tema_actual = $_COOKIE['tema_preferido'] ?? 'claro';
 <body>
 
     <div class="card">
-        <h1>⚙️ Preferencias</h1>
+        <h1>Preferencias</h1>
         <p>Elige tu tema visual favorito:</p>
 
         <form method="POST">
@@ -48,8 +49,8 @@ $tema_actual = $_COOKIE['tema_preferido'] ?? 'claro';
 
             <label>Tema de la interfaz:</label>
             <select name="tema">
-                <option value="claro" <?= $tema_actual === 'claro' ? 'selected' : '' ?>>☀️ Modo Claro</option>
-                <option value="oscuro" <?= $tema_actual === 'oscuro' ? 'selected' : '' ?>>🌙 Modo Oscuro</option>
+                <option value="claro" <?= $tema_actual === 'claro' ? 'selected' : '' ?>>Modo dia</option>
+                <option value="oscuro" <?= $tema_actual === 'oscuro' ? 'selected' : '' ?>>Modo noche</option>
             </select>
 
             <button type="submit" class="btn">Guardar Preferencias</button>
