@@ -6,9 +6,43 @@ require_once __DIR__ . '/../app/auth.php';
 
 obligar_login();
 
-// Consulta simple a la base de datos
-$stmt = $pdo->query("SELECT * FROM items");
-$items = $stmt->fetchAll();
+// --- CONFIGURACIÓN DE PAGINACIÓN ---
+$registros_por_pagina = 5; // Mostrar 5 productos por página
+$pagina_actual = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+if ($pagina_actual < 1) $pagina_actual = 1;
+$offset = ($pagina_actual - 1) * $registros_por_pagina;
+
+// --- CONFIGURACIÓN DE BÚSQUEDA ---
+$busqueda = isset($_GET['q']) ? trim($_GET['q']) : '';
+
+try {
+    // 1. CONSULTA PARA CONTAR (Saber cuántas páginas necesitamos)
+    // Si hay búsqueda, contamos solo los que coinciden. Si no, contamos todos.
+    $sql_count = "SELECT COUNT(*) FROM items WHERE nombre LIKE :q OR categoria LIKE :q";
+    $stmt_count = $pdo->prepare($sql_count);
+    $stmt_count->execute([':q' => "%$busqueda%"]);
+    $total_registros = $stmt_count->fetchColumn();
+    
+    $total_paginas = ceil($total_registros / $registros_por_pagina);
+
+    // 2. CONSULTA PARA OBTENER DATOS (Con límite y búsqueda)
+    // LIMIT: Cuántos sacar / OFFSET: Cuántos saltar
+    $sql = "SELECT * FROM items 
+            WHERE nombre LIKE :q OR categoria LIKE :q 
+            LIMIT :limit OFFSET :offset";
+    
+    $stmt = $pdo->prepare($sql);
+    // PDO::PARAM_INT es importante para que LIMIT funcione bien
+    $stmt->bindValue(':q', "%$busqueda%", PDO::PARAM_STR);
+    $stmt->bindValue(':limit', $registros_por_pagina, PDO::PARAM_INT);
+    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+    $stmt->execute();
+    
+    $items = $stmt->fetchAll();
+
+} catch (PDOException $e) {
+    die("Error en la base de datos: " . $e->getMessage());
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -20,33 +54,53 @@ $items = $stmt->fetchAll();
     <?php if (isset($_COOKIE['tema_preferido']) && $_COOKIE['tema_preferido'] === 'oscuro'): ?>
     <style>
         :root {
-            --fondo-cuerpo: #121212;      /* Negro fondo */
-            --fondo-tarjeta: #1e1e1e;     /* Gris oscuro tarjetas */
-            --fondo-input: #2d2d2d;       /* Gris para inputs */
-            --texto-principal: #e0e0e0;   /* Letra blanca */
-            --borde: #333333;             /* Bordes oscuros */
-            --azul-marca: #4da3ff;        /* Azul más clarito */
+            --fondo-cuerpo: #121212;
+            --fondo-tarjeta: #1e1e1e;
+            --fondo-input: #2d2d2d;
+            --texto-principal: #e0e0e0;
+            --borde: #333333;
+            --azul-marca: #4da3ff;
         }
     </style>
     <?php endif; ?>
+
+    <style>
+        /* Estilos extra para el buscador y paginación */
+        .search-box { margin-bottom: 20px; display: flex; gap: 10px; }
+        .search-box input { flex-grow: 1; }
+        .pagination { margin-top: 20px; text-align: center; }
+        .pagination a { 
+            padding: 8px 12px; border: 1px solid var(--borde); 
+            text-decoration: none; color: var(--texto-principal); margin: 0 5px; border-radius: 4px; 
+        }
+        .pagination a.active { background-color: var(--azul-marca); color: white; border-color: var(--azul-marca); }
+        .pagination a:hover:not(.active) { background-color: #ddd; color: black; }
+    </style>
 </head>
 <body>
 
     <nav class="navbar">
-        <a href="index.php" class="navbar-brand"> Gestión Inventario</a>
+        <a href="index.php" class="navbar-brand">📦 Gestión Inventario</a>
         <div class="nav-links">
-            <a href="preferencias.php"> Preferencias</a> <a href="logout.php" style="color: #dc3545;">Cerrar Sesión</a>
+            <a href="preferencias.php">⚙️ Preferencias</a>
+            <a href="logout.php" style="color: #dc3545;">Cerrar Sesión</a>
         </div>
     </nav>
 
     <div class="container">
         <div class="card">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <h1>Hola, <?= e($_SESSION['username']) ?></h1>
                 <a href="items_form.php" class="btn btn-success">+ Nuevo Producto</a>
             </div>
             
-            <p>Estado actual del almacén:</p>
+            <form class="search-box" method="GET" action="index.php">
+                <input type="text" name="q" placeholder="Buscar por nombre o categoría..." value="<?= e($busqueda) ?>">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+                <?php if ($busqueda): ?>
+                    <a href="index.php" class="btn btn-warning">Limpiar</a>
+                <?php endif; ?>
+            </form>
 
             <table class="inventory-table">
                 <thead>
@@ -81,8 +135,31 @@ $items = $stmt->fetchAll();
                         </td>
                     </tr>
                     <?php endforeach; ?>
+
+                    <?php if (empty($items)): ?>
+                    <tr><td colspan="7" style="text-align:center;">No se encontraron resultados.</td></tr>
+                    <?php endif; ?>
                 </tbody>
             </table>
+
+            <?php if ($total_paginas > 1): ?>
+            <div class="pagination">
+                <?php if ($pagina_actual > 1): ?>
+                    <a href="?page=<?= $pagina_actual - 1 ?>&q=<?= e($busqueda) ?>">« Anterior</a>
+                <?php endif; ?>
+
+                <?php for ($i = 1; $i <= $total_paginas; $i++): ?>
+                    <a href="?page=<?= $i ?>&q=<?= e($busqueda) ?>" class="<?= $i === $pagina_actual ? 'active' : '' ?>">
+                        <?= $i ?>
+                    </a>
+                <?php endfor; ?>
+
+                <?php if ($pagina_actual < $total_paginas): ?>
+                    <a href="?page=<?= $pagina_actual + 1 ?>&q=<?= e($busqueda) ?>">Siguiente »</a>
+                <?php endif; ?>
+            </div>
+            <?php endif; ?>
+
         </div>
     </div>
 
