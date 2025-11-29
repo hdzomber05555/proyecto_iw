@@ -42,9 +42,9 @@ El proyecto viene vacío. Para meter las tablas y el usuario administrador:
 
     Dirección: http://localhost:8000/public/
 
-    <mark>IMPORTANTE</mark> Usuario: admin
+    IMPORTANTE Usuario: admin
 
-    <mark>IMPORTANTE</mark> Contraseña: admin
+    IMPORTANTE Contraseña: admin
 
 
 ![Login y creacion de cuenta](/imagenes/image.png)
