@@ -33,9 +33,9 @@ $items = $stmt->fetchAll();
 <body>
 
     <nav class="navbar">
-        <a href="index.php" class="navbar-brand">📦 Gestión Inventario</a>
+        <a href="index.php" class="navbar-brand"> Gestión Inventario</a>
         <div class="nav-links">
-            <a href="preferencias.php">⚙️ Preferencias</a> <a href="logout.php" style="color: #dc3545;">Cerrar Sesión</a>
+            <a href="preferencias.php"> Preferencias</a> <a href="logout.php" style="color: #dc3545;">Cerrar Sesión</a>
         </div>
     </nav>
 
