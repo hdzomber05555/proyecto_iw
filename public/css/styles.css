@@ -81,11 +81,38 @@ body {
 }
 
 /* --- BOTONES Y BADGES --- */
-.btn { padding: 8px 12px; border-radius: 4px; text-decoration: none; color: white; display: inline-block; font-size: 0.9rem;}
-.btn-success { background-color: #28a745; }
-.btn-warning { background-color: #ffc107; color: black; }
-.btn-danger  { background-color: #dc3545; }
+.btn, button { 
+    padding: 10px 15px; 
+    border-radius: 4px; 
+    text-decoration: none; 
+    display: inline-block; 
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.3s;
+    
+    /* ARREGLO: El texto del botón SIEMPRE blanco */
+    color: white !important; 
+}
 
+.btn:hover, button:hover {
+    opacity: 0.9;
+}
+/* Colores específicos */
+.btn-primary, button[type="submit"] { 
+    background-color: var(--azul-marca) !important; 
+}
+.btn-success { 
+    background-color: #28a745 !important; 
+}
+.btn-warning { 
+    background-color: #ffc107 !important; 
+    color: #212529 !important; /* El amarillo lleva texto negro para que se lea */
+}
+.btn-danger  { 
+    background-color: #dc3545 !important; 
+}
+/* Badges (Etiquetas de stock) */
 .badge { padding: 5px 10px; border-radius: 10px; font-size: 0.8rem; font-weight: bold; color: white; }
 .badge-ok { background-color: #28a745; }
 .badge-low { background-color: #ffc107; color: black; }

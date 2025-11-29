@@ -134,8 +134,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="form-group">
                     <label>Preferencia de Tema</label>
                     <select name="tema">
-                        <option value="claro">☀️ Modo Claro</option>
-                        <option value="oscuro">🌙 Modo Oscuro</option>
+                        <option value="claro">Modo Dia</option>
+                        <option value="oscuro">Modo Noche</option>
                     </select>
                 </div>
 
