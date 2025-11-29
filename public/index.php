@@ -55,7 +55,7 @@ obligar_login();
                             <td>Laptop HP Pavilion</td>
                             <td>Electrónica</td>
                             <td>15</td>
-                            <td>$450.00</td>
+                            <td>$420.00</td>
                             <td><span class="badge badge-ok">En Stock</span></td>
                             <td>
                                 <a href="#" class="btn btn-warning">Editar</a>
