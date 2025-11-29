@@ -1,84 +1,85 @@
 /* public/css/estilos.css */
-
+/* --- Variables de Color y Diseño --- */
 :root {
-    --primary-color: #2c3e50; /* Azul oscuro corporativo */
-    --secondary-color: #34495e;
-    --accent-color: #3498db; /* Azul brillante para enlaces/botones */
-    --success-color: #27ae60; /* Verde para 'Agregar' o 'Stock Alto' */
-    --warning-color: #f39c12; /* Naranja para 'Editar' o 'Stock Bajo' */
-    --danger-color: #e74c3c; /* Rojo para 'Eliminar' o 'Sin Stock' */
-    --light-bg: #ecf0f1;
-    --white: #ffffff;
-    --text-color: #333;
-    --border-color: #ddd;
+    --fondo-principal: #222831;     /* Gris oscuro profundo (Fondo general) */
+    --fondo-secundario: #393E46;    /* Gris más claro para tarjetas/nav */
+    --texto-claro: #EEEEEE;         /* Blanco/Gris muy claro para texto */
+    --acento-principal: #00ADB5;    /* Aqua/Cian vibrante (Acme) */
+    --borde-delgado: #30363d;       /* Borde para separar elementos */
+    --sombra-tecnologica: rgba(0, 173, 181, 0.2); /* Sombra difusa del acento */
+
+    /* Colores de estado */
+    --ok-color: #5cb85c;         /* Verde */
+    --advertencia-color: #f0ad4e; /* Naranja */
+    --peligro-color: #d9534f;    /* Rojo */
 }
 
+/* --- Reseteo y Base --- */
 * {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--light-bg);
-    color: var(--text-color);
+    font-family: 'Consolas', 'Lucida Console', monospace; /* Fuente de código */
+    background-color: var(--fondo-principal);
+    color: var(--texto-claro);
     line-height: 1.6;
+    margin: 0;
 }
 
-/* --- BARRA DE NAVEGACIÓN (Navbar) --- */
+/* --- Barra de Navegación (Navbar) --- */
 .navbar {
-    background-color: var(--primary-color);
-    color: var(--white);
+    background-color: var(--fondo-secundario);
     padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-bottom: 2px solid var(--acento-principal); /* Línea de acento */
+    box-shadow: 0 4px 6px var(--sombra-tecnologica);
 }
 
 .navbar-brand {
     font-size: 1.5rem;
     font-weight: bold;
     text-decoration: none;
-    color: var(--white);
+    color: var(--acento-principal);
 }
 
 .nav-links a {
-    color: var(--white);
+    color: var(--texto-claro);
     text-decoration: none;
     margin-left: 20px;
-    font-size: 0.95rem;
-    transition: color 0.3s;
+    padding: 5px 0;
+    transition: color 0.3s, border-bottom 0.3s;
 }
 
 .nav-links a:hover {
-    color: var(--accent-color);
+    color: var(--acento-principal);
+    border-bottom: 2px solid var(--acento-principal);
 }
 
-.btn-logout {
-    background-color: var(--danger-color);
-    padding: 5px 15px;
-    border-radius: 4px;
-}
-
-/* --- CONTENEDOR PRINCIPAL --- */
+/* --- Estructura de Contenido --- */
 .container {
     max-width: 1200px;
     margin: 2rem auto;
     padding: 0 1rem;
 }
 
-/* --- TARJETAS (Login y Dashboard) --- */
+/* --- Tarjetas (Card) --- */
 .card {
-    background: var(--white);
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    margin-bottom: 2rem;
+    background: var(--fondo-secundario);
+    padding: 2.5rem;
+    border-radius: 6px;
+    border: 1px solid var(--borde-delgado);
+    box-shadow: 0 0 15px var(--sombra-tecnologica);
 }
 
-/* Estilo específico para centrar el Login */
+h1, h2 {
+    color: var(--acento-principal);
+    margin-bottom: 1rem;
+}
+
+/* --- Login Específico (Centrado) --- */
 .login-wrapper {
     min-height: 100vh;
     display: flex;
@@ -87,19 +88,17 @@ body {
 }
 
 .login-card {
-    width: 100%;
-    max-width: 400px;
+    max-width: 380px;
 }
 
-/* --- FORMULARIOS --- */
-.form-group {
-    margin-bottom: 1rem;
-}
 
+/* --- Formularios e Input --- */
 label {
     display: block;
+    margin-top: 1rem;
     margin-bottom: 0.5rem;
-    font-weight: 600;
+    color: var(--texto-claro);
+    font-size: 0.95rem;
 }
 
 input[type="text"],
@@ -108,93 +107,108 @@ input[type="number"],
 select {
     width: 100%;
     padding: 0.75rem;
-    border: 1px solid var(--border-color);
+    background: #1e242a; /* Fondo más oscuro para inputs */
+    color: var(--texto-claro);
+    border: 1px solid var(--borde-delgado);
     border-radius: 4px;
-    font-size: 1rem;
+    transition: border-color 0.3s;
 }
 
-/* --- TABLAS DE INVENTARIO --- */
+input:focus {
+    border-color: var(--acento-principal);
+    outline: none;
+}
+
+/* --- Botones --- */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s, opacity 0.3s;
+    text-transform: uppercase;
+}
+
+.btn-primary { 
+    background-color: var(--acento-principal); 
+    color: var(--fondo-secundario);
+}
+.btn-primary:hover { 
+    background-color: #00939c; 
+    opacity: 0.9;
+}
+
+.btn-success { background-color: var(--ok-color); }
+.btn-success:hover { background-color: #449d44; }
+
+.btn-warning { background-color: var(--advertencia-color); }
+.btn-warning:hover { background-color: #eea236; }
+
+.btn-danger { background-color: var(--peligro-color); }
+.btn-danger:hover { background-color: #c9302c; }
+
+.btn-block { display: block; width: 100%; }
+
+
+/* --- Tablas de Inventario --- */
 .table-responsive {
     overflow-x: auto;
 }
 
 .inventory-table {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-    background-color: var(--white);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border-collapse: separate; /* Para poder usar border-radius */
+    border-spacing: 0;
+    margin-top: 1.5rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    border-radius: 6px;
+    overflow: hidden; /* Corta las esquinas de las celdas */
 }
 
 .inventory-table th, 
 .inventory-table td {
-    padding: 12px 15px;
+    padding: 14px 18px;
     text-align: left;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--borde-delgado);
 }
 
 .inventory-table th {
-    background-color: var(--secondary-color);
-    color: var(--white);
+    background-color: var(--acento-principal);
+    color: var(--fondo-principal);
     text-transform: uppercase;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     letter-spacing: 1px;
 }
 
-.inventory-table tr:hover {
-    background-color: #f1f1f1;
+/* Efecto cebra para legibilidad en listas largas */
+.inventory-table tbody tr:nth-child(even) {
+    background-color: #333940;
 }
 
-/* --- BOTONES --- */
-.btn {
-    display: inline-block;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
+.inventory-table tbody tr:hover {
+    background-color: #4a515a; /* Gris un poco más claro al pasar el ratón */
     cursor: pointer;
-    text-decoration: none;
-    font-size: 0.9rem;
-    color: white;
-    transition: background 0.3s;
 }
 
-.btn-primary { background-color: var(--accent-color); }
-.btn-primary:hover { background-color: #2980b9; }
-
-.btn-success { background-color: var(--success-color); }
-.btn-success:hover { background-color: #219150; }
-
-.btn-warning { background-color: var(--warning-color); }
-.btn-warning:hover { background-color: #d35400; }
-
-.btn-danger { background-color: var(--danger-color); }
-.btn-danger:hover { background-color: #c0392b; }
-
-.btn-block { display: block; width: 100%; }
-
-/* --- UTILIDADES --- */
-.header-flex {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-}
-
+/* --- Badges y Alertas de Stock --- */
 .badge {
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-size: 0.8rem;
     font-weight: bold;
-    color: white;
+    color: var(--fondo-principal); /* Texto oscuro sobre el badge */
 }
-.badge-ok { background-color: var(--success-color); }
-.badge-low { background-color: var(--warning-color); }
+.badge-ok { background-color: var(--ok-color); }
+.badge-low { background-color: var(--advertencia-color); }
+.badge-out { background-color: var(--peligro-color); }
 
 .error-msg {
-    color: var(--danger-color);
-    background: #fadbd8;
+    background: var(--peligro-color);
+    color: var(--texto-claro);
     padding: 10px;
     border-radius: 4px;
     margin-bottom: 1rem;
-    border: 1px solid #f1948a;
+    font-size: 0.9rem;
 }
