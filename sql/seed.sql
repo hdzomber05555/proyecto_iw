@@ -29,7 +29,7 @@ TRUNCATE TABLE items;
 -- 5. INSERTAR EL USUARIO ADMIN
 -- Usuario: admin / Contraseña: admin
 INSERT INTO usuarios (username, password) 
-VALUES ('admin', '$$2y$10$xP5ZnO9YtrAWz7ytpF21z.upj1bmGtqLTfTleK.fivVR2qcoejmzK');
+VALUES ('admin', '$2y$10$xP5ZnO9YtrAWz7ytpF21z.upj1bmGtqLTfTleK.fivVR2qcoejmzK');
 
 -- 6. INSERTAR ÍTEMS DE PRUEBA
 INSERT INTO items (nombre, categoria, ubicacion, stock) VALUES 
