@@ -47,14 +47,14 @@ El proyecto viene vacío. Para meter las tablas y el usuario administrador:
     <mark>IMPORTANTE</mark> Contraseña: admin
 
 
-![Login y creacion de cuenta](image.png)
+![Login y creacion de cuenta](/imagenes/image.png)
 
-![index con paginación y barra de busqueda ](image-1.png)
+![index con paginación y barra de busqueda ](/imagenes/image-1.png)
 
-![Ver el producto](image-2.png)
+![Ver el producto](/imagenes/image-2.png)
 
-![Preferencias del tema oscuro y claro](image-3.png)
+![Preferencias del tema oscuro y claro](/imagenes/image-3.png)
 
-![Primera captura rollback](image-4.png)
+![Primera captura rollback](/imagenes/image-4.png)
 
-![segunda captura rollback](image-5.png)
+![segunda captura rollback](/imagenes/image-5.png)
