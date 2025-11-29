@@ -1,0 +1,200 @@
+/* public/css/estilos.css */
+
+:root {
+    --primary-color: #2c3e50; /* Azul oscuro corporativo */
+    --secondary-color: #34495e;
+    --accent-color: #3498db; /* Azul brillante para enlaces/botones */
+    --success-color: #27ae60; /* Verde para 'Agregar' o 'Stock Alto' */
+    --warning-color: #f39c12; /* Naranja para 'Editar' o 'Stock Bajo' */
+    --danger-color: #e74c3c; /* Rojo para 'Eliminar' o 'Sin Stock' */
+    --light-bg: #ecf0f1;
+    --white: #ffffff;
+    --text-color: #333;
+    --border-color: #ddd;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--light-bg);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* --- BARRA DE NAVEGACIÓN (Navbar) --- */
+.navbar {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--white);
+}
+
+.nav-links a {
+    color: var(--white);
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 0.95rem;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--accent-color);
+}
+
+.btn-logout {
+    background-color: var(--danger-color);
+    padding: 5px 15px;
+    border-radius: 4px;
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* --- TARJETAS (Login y Dashboard) --- */
+.card {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
+}
+
+/* Estilo específico para centrar el Login */
+.login-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 400px;
+}
+
+/* --- FORMULARIOS --- */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+/* --- TABLAS DE INVENTARIO --- */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.inventory-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background-color: var(--white);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.inventory-table th, 
+.inventory-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.inventory-table th {
+    background-color: var(--secondary-color);
+    color: var(--white);
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+.inventory-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* --- BOTONES --- */
+.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 0.9rem;
+    color: white;
+    transition: background 0.3s;
+}
+
+.btn-primary { background-color: var(--accent-color); }
+.btn-primary:hover { background-color: #2980b9; }
+
+.btn-success { background-color: var(--success-color); }
+.btn-success:hover { background-color: #219150; }
+
+.btn-warning { background-color: var(--warning-color); }
+.btn-warning:hover { background-color: #d35400; }
+
+.btn-danger { background-color: var(--danger-color); }
+.btn-danger:hover { background-color: #c0392b; }
+
+.btn-block { display: block; width: 100%; }
+
+/* --- UTILIDADES --- */
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: white;
+}
+.badge-ok { background-color: var(--success-color); }
+.badge-low { background-color: var(--warning-color); }
+
+.error-msg {
+    color: var(--danger-color);
+    background: #fadbd8;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    border: 1px solid #f1948a;
+}
