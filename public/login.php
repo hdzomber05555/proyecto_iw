@@ -87,6 +87,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <button type="submit">Iniciar Sesión</button>
     </form>
-
+<div style="margin-top: 20px; text-align: center;">
+            <p>¿No tienes cuenta?</p>
+            <a href="register.php" style="color: #007bff; text-decoration: none; font-weight: bold;">Crea una aquí</a>
+        </div>
 </body>
 </html>
