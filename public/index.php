@@ -55,7 +55,6 @@ try {
     <meta charset="UTF-8">
     <title>Inventario</title>
     <link rel="stylesheet" href="css/styles.css">
-
     <?php if (isset($_COOKIE['tema_preferido']) && $_COOKIE['tema_preferido'] === 'oscuro'): ?>
     <style>
         :root {
