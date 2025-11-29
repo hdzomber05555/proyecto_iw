@@ -1,0 +1,214 @@
+/* public/css/estilos.css */
+/* --- Variables de Color y Diseño --- */
+:root {
+    --fondo-principal: #222831;     /* Gris oscuro profundo (Fondo general) */
+    --fondo-secundario: #393E46;    /* Gris más claro para tarjetas/nav */
+    --texto-claro: #EEEEEE;         /* Blanco/Gris muy claro para texto */
+    --acento-principal: #00ADB5;    /* Aqua/Cian vibrante (Acme) */
+    --borde-delgado: #30363d;       /* Borde para separar elementos */
+    --sombra-tecnologica: rgba(0, 173, 181, 0.2); /* Sombra difusa del acento */
+
+    /* Colores de estado */
+    --ok-color: #5cb85c;         /* Verde */
+    --advertencia-color: #f0ad4e; /* Naranja */
+    --peligro-color: #d9534f;    /* Rojo */
+}
+
+/* --- Reseteo y Base --- */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Consolas', 'Lucida Console', monospace; /* Fuente de código */
+    background-color: var(--fondo-principal);
+    color: var(--texto-claro);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* --- Barra de Navegación (Navbar) --- */
+.navbar {
+    background-color: var(--fondo-secundario);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--acento-principal); /* Línea de acento */
+    box-shadow: 0 4px 6px var(--sombra-tecnologica);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--acento-principal);
+}
+
+.nav-links a {
+    color: var(--texto-claro);
+    text-decoration: none;
+    margin-left: 20px;
+    padding: 5px 0;
+    transition: color 0.3s, border-bottom 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--acento-principal);
+    border-bottom: 2px solid var(--acento-principal);
+}
+
+/* --- Estructura de Contenido --- */
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* --- Tarjetas (Card) --- */
+.card {
+    background: var(--fondo-secundario);
+    padding: 2.5rem;
+    border-radius: 6px;
+    border: 1px solid var(--borde-delgado);
+    box-shadow: 0 0 15px var(--sombra-tecnologica);
+}
+
+h1, h2 {
+    color: var(--acento-principal);
+    margin-bottom: 1rem;
+}
+
+/* --- Login Específico (Centrado) --- */
+.login-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-card {
+    max-width: 380px;
+}
+
+
+/* --- Formularios e Input --- */
+label {
+    display: block;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--texto-claro);
+    font-size: 0.95rem;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 0.75rem;
+    background: #1e242a; /* Fondo más oscuro para inputs */
+    color: var(--texto-claro);
+    border: 1px solid var(--borde-delgado);
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+input:focus {
+    border-color: var(--acento-principal);
+    outline: none;
+}
+
+/* --- Botones --- */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s, opacity 0.3s;
+    text-transform: uppercase;
+}
+
+.btn-primary { 
+    background-color: var(--acento-principal); 
+    color: var(--fondo-secundario);
+}
+.btn-primary:hover { 
+    background-color: #00939c; 
+    opacity: 0.9;
+}
+
+.btn-success { background-color: var(--ok-color); }
+.btn-success:hover { background-color: #449d44; }
+
+.btn-warning { background-color: var(--advertencia-color); }
+.btn-warning:hover { background-color: #eea236; }
+
+.btn-danger { background-color: var(--peligro-color); }
+.btn-danger:hover { background-color: #c9302c; }
+
+.btn-block { display: block; width: 100%; }
+
+
+/* --- Tablas de Inventario --- */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.inventory-table {
+    width: 100%;
+    border-collapse: separate; /* Para poder usar border-radius */
+    border-spacing: 0;
+    margin-top: 1.5rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    border-radius: 6px;
+    overflow: hidden; /* Corta las esquinas de las celdas */
+}
+
+.inventory-table th, 
+.inventory-table td {
+    padding: 14px 18px;
+    text-align: left;
+    border-bottom: 1px solid var(--borde-delgado);
+}
+
+.inventory-table th {
+    background-color: var(--acento-principal);
+    color: var(--fondo-principal);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+/* Efecto cebra para legibilidad en listas largas */
+.inventory-table tbody tr:nth-child(even) {
+    background-color: #333940;
+}
+
+.inventory-table tbody tr:hover {
+    background-color: #4a515a; /* Gris un poco más claro al pasar el ratón */
+    cursor: pointer;
+}
+
+/* --- Badges y Alertas de Stock --- */
+.badge {
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--fondo-principal); /* Texto oscuro sobre el badge */
+}
+.badge-ok { background-color: var(--ok-color); }
+.badge-low { background-color: var(--advertencia-color); }
+.badge-out { background-color: var(--peligro-color); }
+
+.error-msg {
+    background: var(--peligro-color);
+    color: var(--texto-claro);
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}

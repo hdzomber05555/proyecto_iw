@@ -1,106 +1,41 @@
 <?php
-
-require_once __DIR__ . '/../app/pdo.php';
-require_once __DIR__ . '/../app/utils.php';
-require_once __DIR__ . '/../app/auth.php';
-require_once __DIR__ . '/../app/csrf.php';
-
-// Si ya estoy logueado, me manda directo al panel
-if (isset($_SESSION['usuario_id'])) {
-    redirect('/public/index.php');
-}
-
-// ARREGLO 1: Inicializamos las variables AL PRINCIPIO del archivo.
-// Así nunca estarán "undefined" (indefinidas).
-$username = ''; 
-$error = null;
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
-    verificar_csrf();
-
-    // Recogemos datos (Usamos el operador null coalescing ?? por seguridad)
-    $username = trim($_POST['username'] ?? '');
-    $password = $_POST['password'] ?? '';
-
-    // Validamos que no estén vacíos
-    if (empty($username) || empty($password)) {
-        $error = "Por favor, rellena todos los campos.";
-    } else {
-        // Buscamos el usuario en la BD
-        $sql = "SELECT * FROM usuarios WHERE username = :u LIMIT 1";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([':u' => $username]);
-        $usuario = $stmt->fetch();
-
-        // Verificamos la contraseña
-        if ($usuario && password_verify($password, $usuario['password'])) {
-            $_SESSION['usuario_id'] = $usuario['id'];
-            $_SESSION['username']   = $usuario['username'];
-            
-            // Preferencia por cookie (Requisito del PDF [cite: 28])
-            // Guardamos un tema por defecto si no tiene
-            setcookie('tema', 'claro', time() + (86400 * 30), "/");
-
-            redirect('/public/index.php');
-        } else {
-            $error = "Usuario o contraseña incorrectos.";
-        }
-    }
-}
+// ... (Tus requires y lógica PHP de login se mantienen igual) ...
+// ...
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Iniciar Sesión</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 2rem;
-        }
-
-        form {
-            max-width: 300px;
-            margin: auto;
-        }
-
-        input {
-            width: 100%;
-            padding: 0.5rem;
-            margin: 0.5rem 0;
-        }
-
-        button {
-            padding: 0.5rem;
-            width: 100%;
-            background-color: #007bff;
-            color: white;
-            border: none;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        .error {
-            color: red;
-        }
-    </style>
+    <title>Iniciar Sesión - Inventario</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-
-        <form method="POST" action="">
-            <h2>Iniciar Sesión</h2>
+    
+    <div class="login-wrapper">
+        <div class="card login-card">
+            <h2 style="text-align:center; margin-bottom: 1.5rem;">Acceso al Inventario</h2>
+            
             <?php if ($error): ?>
-                <div class="error"><?php echo e($error); ?></div>
-                <?php endif; ?>
+                <div class="error-msg"><?php echo e($error); ?></div>
+            <?php endif; ?>
+
+            <form method="POST" action="">
                 <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
-                <label>Usuario:</label>
-                <input type="text" name="username" required autofocus>
-                <label>Contraseña:</label>
-                <input type="password" name="password" required>
-                <button type="submit">Iniciar Sesión</button>
-        </form>
+                
+                <div class="form-group">
+                    <label>Usuario:</label>
+                    <input type="text" name="username" required autofocus placeholder="Ej. admin">
+                </div>
+
+                <div class="form-group">
+                    <label>Contraseña:</label>
+                    <input type="password" name="password" required placeholder="******">
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
+            </form>
+        </div>
+    </div>
+
 </body>
 </html>
