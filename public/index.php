@@ -3,7 +3,16 @@ require_once __DIR__ . '/../app/pdo.php';
 require_once __DIR__ . '/../app/utils.php';
 require_once __DIR__ . '/../app/auth.php';
 
+// Seguridad si no inisiastes sesion
 obligar_login();
+
+//  RECUPERAR DATOS DE LA BD 
+try {
+    $stmt = $pdo->query("SELECT * FROM items");
+    $items = $stmt->fetchAll();
+} catch (PDOException $e) {
+    die("Error al cargar datos: " . $e->getMessage());
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -16,7 +25,7 @@ obligar_login();
 <body>
 
     <nav class="navbar">
-        <a href="index.php" class="navbar-brand">📦 Gestión Inventario</a>
+        <a href="index.php" class="navbar-brand"> Gestión Inventario</a>
         <div class="nav-links">
             <a href="index.php">Inicio</a>
             <a href="#">Productos</a>
@@ -33,7 +42,7 @@ obligar_login();
                     <h1>Hola, <?= e($_SESSION['username']) ?></h1>
                     <p>Resumen del estado actual del inventario.</p>
                 </div>
-                <a href="#" class="btn btn-success">+ Nuevo Producto</a>
+                <a href="items_form.php" class="btn btn-success">+ Nuevo Producto</a>
             </div>
 
             <div class="table-responsive">
@@ -43,37 +52,40 @@ obligar_login();
                             <th>ID</th>
                             <th>Producto</th>
                             <th>Categoría</th>
-                            <th>Stock</th>
-                            <th>Precio</th>
+                            <th>Ubicación</th> <th>Stock</th>
                             <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <?php foreach ($items as $item): ?>
                         <tr>
-                            <td>101</td>
-                            <td>Laptop HP Pavilion</td>
-                            <td>Electrónica</td>
-                            <td>15</td>
-                            <td>$450.00</td>
-                            <td><span class="badge badge-ok">En Stock</span></td>
+                            <td><?= e($item['id']) ?></td>
+                            <td><?= e($item['nombre']) ?></td>
+                            <td><?= e($item['categoria']) ?></td>
+                            <td><?= e($item['ubicacion']) ?></td>
+                            <td style="font-weight: bold;"><?= e($item['stock']) ?></td>
                             <td>
-                                <a href="#" class="btn btn-warning">Editar</a>
-                                <a href="#" class="btn btn-danger">Borrar</a>
+                                <?php if ($item['stock'] < 5): ?>
+                                    <span class="badge badge-low">Bajo Stock</span>
+                                <?php else: ?>
+                                    <span class="badge badge-ok">En Stock</span>
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <a href="items_form.php?id=<?= $item['id'] ?>" class="btn btn-warning">Editar</a>
+                                <a href="items_delete.php?id=<?= $item['id'] ?>" class="btn btn-danger">Borrar</a>
                             </td>
                         </tr>
+                        <?php endforeach; ?>
+
+                        <?php if (empty($items)): ?>
                         <tr>
-                            <td>102</td>
-                            <td>Mouse Inalámbrico</td>
-                            <td>Accesorios</td>
-                            <td>3</td>
-                            <td>$12.50</td>
-                            <td><span class="badge badge-low">Bajo Stock</span></td>
-                            <td>
-                                <a href="#" class="btn btn-warning">Editar</a>
-                                <a href="#" class="btn btn-danger">Borrar</a>
+                            <td colspan="7" style="text-align: center; padding: 20px;">
+                                No hay productos registrados aún.
                             </td>
                         </tr>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
