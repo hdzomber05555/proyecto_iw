@@ -17,6 +17,21 @@ try {
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <?php
+    $tema = $_COOKIE['tema_preferido'] ?? 'claro';
+    if ($tema === 'oscuro'):
+    ?>
+    <style>
+        body { background-color: #222; color: #fff; }
+        .card { background-color: #333; color: #fff; border: 1px solid #444; }
+        table { color: #fff; }
+        th { background-color: #444; color: #fff; }
+        td { border-color: #555; }
+        /* Ajustamos los inputs y selects por si acaso */
+        input, select { background: #555; color: white; border: 1px solid #666; }
+        h1, p { color: #fff; }
+    </style>
+    <?php endif; ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventario - Panel Principal</title>
