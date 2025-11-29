@@ -9,4 +9,5 @@ Sigue estos pasos:
 ### 1. Levantar Docker
 Abre la terminal en la carpeta del proyecto y escribe el comando :
 !importante tener docker instalado¡
+
 docker compose up -d
