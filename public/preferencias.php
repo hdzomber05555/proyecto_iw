@@ -29,6 +29,19 @@ $tema_actual = $_COOKIE['tema_preferido'] ?? 'claro';
     <meta charset="UTF-8">
     <title>Preferencias</title>
     <link rel="stylesheet" href="css/styles.css">
+
+    <?php if (isset($_COOKIE['tema_preferido']) && $_COOKIE['tema_preferido'] === 'oscuro'): ?>
+    <style>
+        :root {
+            --fondo-cuerpo: #121212;
+            --fondo-tarjeta: #1e1e1e;
+            --fondo-input: #2d2d2d;
+            --texto-principal: #e0e0e0;
+            --borde: #333333;
+            --azul-marca: #4da3ff;
+        }
+    </style>
+    <?php endif; ?>
     <style>
         body { font-family: sans-serif; padding: 50px; text-align: center; }
         .card { max-width: 400px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }

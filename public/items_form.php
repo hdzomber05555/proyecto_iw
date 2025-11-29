@@ -101,6 +101,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <title><?= $titulo ?></title>
     <link rel="stylesheet" href="css/styles.css">
+
+    <?php if (isset($_COOKIE['tema_preferido']) && $_COOKIE['tema_preferido'] === 'oscuro'): ?>
+    <style>
+        :root {
+            --fondo-cuerpo: #121212;
+            --fondo-tarjeta: #1e1e1e;
+            --fondo-input: #2d2d2d;
+            --texto-principal: #e0e0e0;
+            --borde: #333333;
+            --azul-marca: #4da3ff;
+        }
+    </style>
+    <?php endif; ?>
     <style>
         /* Un poco de CSS extra por si acaso no carga styles.css */
         .form-container { max-width: 500px; margin: 50px auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background: #fff; }
