@@ -16,24 +16,29 @@ $offset = ($pagina_actual - 1) * $registros_por_pagina;
 $busqueda = isset($_GET['q']) ? trim($_GET['q']) : '';
 
 try {
-    // 1. CONSULTA PARA CONTAR (Saber cuántas páginas necesitamos)
-    // Si hay búsqueda, contamos solo los que coinciden. Si no, contamos todos.
-    $sql_count = "SELECT COUNT(*) FROM items WHERE nombre LIKE :q OR categoria LIKE :q";
+    // 1. CONSULTA PARA CONTAR (CORREGIDA)
+    // Usamos dos variables distintas (:q1 y :q2) aunque tengan el mismo valor
+    $sql_count = "SELECT COUNT(*) FROM items WHERE nombre LIKE :q1 OR categoria LIKE :q2";
     $stmt_count = $pdo->prepare($sql_count);
-    $stmt_count->execute([':q' => "%$busqueda%"]);
+    $stmt_count->execute([
+        ':q1' => "%$busqueda%",
+        ':q2' => "%$busqueda%"
+    ]);
     $total_registros = $stmt_count->fetchColumn();
     
     $total_paginas = ceil($total_registros / $registros_por_pagina);
 
-    // 2. CONSULTA PARA OBTENER DATOS (Con límite y búsqueda)
-    // LIMIT: Cuántos sacar / OFFSET: Cuántos saltar
+    // 2. CONSULTA PARA OBTENER DATOS (CORREGIDA)
+    // Aquí también separamos :q1 y :q2 para evitar el error HY093
     $sql = "SELECT * FROM items 
-            WHERE nombre LIKE :q OR categoria LIKE :q 
+            WHERE nombre LIKE :q1 OR categoria LIKE :q2 
             LIMIT :limit OFFSET :offset";
     
     $stmt = $pdo->prepare($sql);
-    // PDO::PARAM_INT es importante para que LIMIT funcione bien
-    $stmt->bindValue(':q', "%$busqueda%", PDO::PARAM_STR);
+    
+    // Vinculamos cada parámetro por separado
+    $stmt->bindValue(':q1', "%$busqueda%", PDO::PARAM_STR);
+    $stmt->bindValue(':q2', "%$busqueda%", PDO::PARAM_STR);
     $stmt->bindValue(':limit', $registros_por_pagina, PDO::PARAM_INT);
     $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
     $stmt->execute();
@@ -80,9 +85,9 @@ try {
 <body>
 
     <nav class="navbar">
-        <a href="index.php" class="navbar-brand">📦 Gestión Inventario</a>
+        <a href="index.php" class="navbar-brand">Gestión Inventario</a>
         <div class="nav-links">
-            <a href="preferencias.php">⚙️ Preferencias</a>
+            <a href="preferencias.php">Preferencias</a>
             <a href="logout.php" style="color: #dc3545;">Cerrar Sesión</a>
         </div>
     </nav>
@@ -130,6 +135,7 @@ try {
                             <?php endif; ?>
                         </td>
                         <td>
+                             <a href="items_show.php?id=<?= $item['id'] ?>" class="btn btn-primary" style="background-color: #17a2b8;">Ver</a>
                             <a href="items_form.php?id=<?= $item['id'] ?>" class="btn btn-warning">Editar</a>
                             <a href="items_delete.php?id=<?= $item['id'] ?>" class="btn btn-danger">Borrar</a>
                         </td>
