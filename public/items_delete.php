@@ -8,56 +8,35 @@ require_once __DIR__ . '/../app/csrf.php';
 
 obligar_login();
 
-// 1. Validamos que llegue un ID
 $id = $_GET['id'] ?? null;
-if (!$id) {
-    redirect('index.php');
-}
+if (!$id) redirect('index.php');
 
-// 2. Buscamos el ítem para confirmar que existe (y mostrar su nombre)
 $stmt = $pdo->prepare("SELECT * FROM items WHERE id = :id");
 $stmt->execute([':id' => $id]);
 $item = $stmt->fetch();
 
-if (!$item) {
-    die("El producto no existe.");
-}
+if (!$item) die("El producto no existe.");
 
-// 3. PROCESAMOS EL BORRADO (Solo si es POST y con Token)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     verificar_csrf();
 
     try {
-        // --- INICIO DE LA TRANSACCIÓN (Requisito PDF) ---
         $pdo->beginTransaction();
 
-        // PASO A: Guardar en Auditoría (Requisito PDF)
-        // Guardamos todos los datos del ítem en formato JSON para tener un respaldo
         $datos_item = json_encode($item, JSON_UNESCAPED_UNICODE);
         
         $sql_audit = "INSERT INTO auditoria_borrados (item_datos, usuario_id) VALUES (:datos, :u)";
         $stmt_audit = $pdo->prepare($sql_audit);
-        $stmt_audit->execute([
-            ':datos' => $datos_item,
-            ':u'     => $_SESSION['usuario_id']
-        ]);
+        $stmt_audit->execute([':datos' => $datos_item, ':u' => $_SESSION['usuario_id']]);
 
-        // PASO B: Borrar el ítem de verdad
         $stmt_delete = $pdo->prepare("DELETE FROM items WHERE id = :id");
         $stmt_delete->execute([':id' => $id]);
 
-        // --- CONFIRMAR CAMBIOS ---
         $pdo->commit();
-        
-        // Todo salió bien, volvemos al listado
         redirect('index.php');
 
     } catch (Exception $e) {
-        // --- ROLLBACK (Requisito PDF) ---
-        // Si algo falló, deshacemos todo (ni se borra, ni se audita)
-        if ($pdo->inTransaction()) {
-            $pdo->rollBack();
-        }
+        if ($pdo->inTransaction()) $pdo->rollBack();
         die("Error crítico al borrar: " . $e->getMessage());
     }
 }
@@ -67,14 +46,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Borrar Producto</title>
+    
+    <link rel="stylesheet" href="css/styles.css">
+
+    <?php if (isset($_COOKIE['tema_preferido']) && $_COOKIE['tema_preferido'] === 'oscuro'): ?>
     <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; padding-top: 50px; background-color: #f8d7da; }
-        .confirm-box { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 0 15px rgba(0,0,0,0.2); text-align: center; max-width: 400px; }
-        h2 { color: #721c24; }
-        .btn { padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; cursor: pointer; border: none; font-size: 16px; margin: 10px; }
+        :root {
+            --fondo-cuerpo: #121212;
+            --fondo-tarjeta: #1e1e1e;
+            --fondo-input: #2d2d2d;
+            --texto-principal: #e0e0e0;
+            --borde: #333333;
+            --azul-marca: #4da3ff;
+        }
+    </style>
+    <?php endif; ?>
+
+    <style>
+        /* Usamos variables para respetar el tema */
+        body { 
+            font-family: sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            padding-top: 50px; 
+            background-color: var(--fondo-cuerpo); /* Antes era rojo fijo */
+            color: var(--texto-principal);
+        }
+        
+        .confirm-box { 
+            background: var(--fondo-tarjeta); /* Antes era white */
+            padding: 30px; 
+            border-radius: 8px; 
+            box-shadow: 0 0 15px var(--sombra); 
+            text-align: center; 
+            max-width: 400px;
+            border: 1px solid var(--borde);
+        }
+        
+        h2 { color: var(--peligro-rojo); }
+        
+        .btn { padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; cursor: pointer; border: none; font-size: 16px; margin: 10px; display: inline-block; }
+        
         .btn-cancel { background-color: #6c757d; color: white; }
-        .btn-delete { background-color: #dc3545; color: white; }
-        .item-info { background: #eee; padding: 10px; border-radius: 4px; margin: 20px 0; text-align: left; }
+        .btn-delete { background-color: var(--peligro-rojo); color: white; }
+        
+        .item-info { 
+            background: var(--fondo-cuerpo); /* Para que contraste con la tarjeta */
+            padding: 10px; 
+            border-radius: 4px; 
+            margin: 20px 0; 
+            text-align: left;
+            border: 1px solid var(--borde);
+        }
     </style>
 </head>
 <body>
