@@ -6,8 +6,55 @@ Nuestra práctica de Implantación de Aplicaciones Web. Es un gestor de inventar
 
 Sigue estos pasos:
 
-### 1. Levantar Docker
-Abre la terminal en la carpeta del proyecto y escribe el comando :
-!importante tener docker instalado¡
+### 1. Clonar el repositorio
 
+En la terminal tienes que copiar el siguiente comando:
+
+```bash
+git clone https://github.com/hdzomber05555/proyecto_iw.git
+```
+
+### 2. Levantar Docker
+
+Abre la terminal en la carpeta del proyecto y escribe el comando :
+<mark>IMPORTANTE TENER DOCKER INSTALADO</mark>
+
+```bash
 docker compose up -d
+```
+
+### 2. Cargar la Base de Datos
+
+El proyecto viene vacío. Para meter las tablas y el usuario administrador:
+
+    Entra en phpMyAdmin: http://localhost:8080/ (Usuario: root / Clave: root).
+
+    Pincha en la base de datos inventario_bd.
+
+    Ve a la pestaña Importar.
+
+    Sube el archivo sql/schema.sql (esto crea las tablas).
+
+    Sube el archivo sql/seed.sql (esto mete los datos de prueba y el admin)
+
+
+### 4. Entrar en la web
+
+    Dirección: http://localhost:8000/public/
+
+    <mark>IMPORTANTE</mark> Usuario: admin
+
+    <mark>IMPORTANTE</mark> Contraseña: admin
+
+
+![Login y creacion de cuenta](image.png)
+
+![index con paginación y barra de busqueda ](image-1.png)
+
+![Ver el producto](image-2.png)
+
+![Preferencias del tema oscuro y claro](image-3.png)
+
+![Primera captura rollback](image-4.png)
+
+![segunda captura rollback](image-5.png)
