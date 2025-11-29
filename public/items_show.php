@@ -74,7 +74,7 @@ if (!$item) die("El producto no existe.");
 <body>
 
     <div class="detail-card">
-        <h2 style="margin-top: 0;">📦 Ficha de Producto</h2>
+        <h2 style="margin-top: 0;">Ficha de Producto</h2>
         
         <div class="detail-row">
             <span class="detail-label">ID:</span>
