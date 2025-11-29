@@ -5,10 +5,12 @@ require_once __DIR__ . '/../app/pdo.php';
 require_once __DIR__ . '/../app/utils.php';
 require_once __DIR__ . '/../app/csrf.php';
 
-// Si ya está logueado, no tiene sentido registrarse, lo mandamos al panel
+// CORRECCIÓN: Solo iniciamos sesión si no está iniciada ya
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+// Si ya está logueado, lo mandamos al panel
 if (isset($_SESSION['usuario_id'])) {
     redirect('index.php');
 }
@@ -23,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
     $confirm_password = $_POST['confirm_password'] ?? '';
+    $tema = $_POST['tema'] ?? 'claro'; // Recogemos el tema elegido
 
     // Validaciones básicas
     if (empty($username) || empty($password)) {
@@ -37,8 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($stmt->fetch()) {
             $error = "Ese nombre de usuario ya está cogido.";
         } else {
-            // 2. Crear el usuario (CON HASH)
-            // Aquí es donde aplicamos la seguridad que pide el PDF
+            // 2. Crear el usuario
             $hash = password_hash($password, PASSWORD_DEFAULT);
 
             try {
@@ -49,10 +51,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ':p' => $hash
                 ]);
 
-                // Éxito: Mostramos mensaje y enlace al login
+                // 3. NUEVO: Guardamos la preferencia de tema en la Cookie
+                // Así cuando inicie sesión, ya se verá como él quiere
+                setcookie('tema_preferido', $tema, time() + (86400 * 30), "/");
+
+                // Éxito
                 $mensaje_exito = "¡Cuenta creada con éxito! Ya puedes iniciar sesión.";
-                // Limpiamos variables para que no salga el formulario relleno
                 $username = ''; 
+
             } catch (PDOException $e) {
                 $error = "Error en la base de datos: " . $e->getMessage();
             }
@@ -81,7 +87,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
 
     <style>
-        /* Reutilizamos estilos del login */
         .login-wrapper { min-height: 100vh; display: flex; align-items: center; justify-content: center; background-color: var(--fondo-cuerpo); }
         .login-card { width: 100%; max-width: 400px; text-align: center; background: var(--fondo-tarjeta); padding: 2rem; border-radius: 8px; border: 1px solid var(--borde); box-shadow: 0 4px 10px var(--sombra); }
         .form-group { margin-bottom: 15px; text-align: left; }
@@ -124,6 +129,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="form-group">
                     <label>Confirmar Contraseña</label>
                     <input type="password" name="confirm_password" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Preferencia de Tema</label>
+                    <select name="tema">
+                        <option value="claro">☀️ Modo Claro</option>
+                        <option value="oscuro">🌙 Modo Oscuro</option>
+                    </select>
                 </div>
 
                 <button type="submit" class="btn btn-primary" style="width: 100%;">Registrarse</button>
