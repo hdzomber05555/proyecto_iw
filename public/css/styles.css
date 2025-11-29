@@ -1,214 +1,221 @@
 /* public/css/estilos.css */
-/* --- Variables de Color y Diseño --- */
+/*
+ * Hoja de Estilos Final para "Planificación de Inventario"
+ * Estilo: Limpio, profesional, colores suaves y armoniosos.
+ */
+
+/* --- Variables (Paleta de Colores Final) --- */
 :root {
-    --fondo-principal: #222831;     /* Gris oscuro profundo (Fondo general) */
-    --fondo-secundario: #393E46;    /* Gris más claro para tarjetas/nav */
-    --texto-claro: #EEEEEE;         /* Blanco/Gris muy claro para texto */
-    --acento-principal: #00ADB5;    /* Aqua/Cian vibrante (Acme) */
-    --borde-delgado: #30363d;       /* Borde para separar elementos */
-    --sombra-tecnologica: rgba(0, 173, 181, 0.2); /* Sombra difusa del acento */
+    --fondo-cuerpo: #f8f9fa;     /* Gris muy muy claro (Casi blanco, fondo del <body>) */
+    --fondo-tarjeta: #ffffff;    /* Blanco puro para tarjetas y tablas */
+    --texto-principal: #495057;  /* Gris oscuro suave (Texto general) */
+    --acento-principal: #1f75d5; /* Un Azul corporativo clásico */
+    --borde-delgadito: #e9ecef;    /* Borde muy sutil */
 
     /* Colores de estado */
-    --ok-color: #5cb85c;         /* Verde */
-    --advertencia-color: #f0ad4e; /* Naranja */
-    --peligro-color: #d9534f;    /* Rojo */
+    --ok-verde: #28a745;         /* Verde fuerte */
+    --peligro-rojo: #dc3545;     /* Rojo estándar */
+    --aviso-naranja: #ffc107;    /* Naranja para stock bajo */
 }
 
 /* --- Reseteo y Base --- */
 * {
-    box-sizing: border-box;
+    box-sizing: border-box; 
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    font-family: 'Consolas', 'Lucida Console', monospace; /* Fuente de código */
-    background-color: var(--fondo-principal);
-    color: var(--texto-claro);
+    font-family: 'Verdana', Arial, sans-serif;
+    background-color: var(--fondo-cuerpo); /* Fondo muy claro */
+    color: var(--texto-principal);
     line-height: 1.6;
-    margin: 0;
 }
 
 /* --- Barra de Navegación (Navbar) --- */
 .navbar {
-    background-color: var(--fondo-secundario);
-    padding: 1rem 2rem;
+    background-color: var(--fondo-tarjeta); /* Navbar blanca */
+    padding: 15px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid var(--acento-principal); /* Línea de acento */
-    box-shadow: 0 4px 6px var(--sombra-tecnologica);
+    border-bottom: 3px solid var(--acento-principal); /* Línea de acento debajo */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08); 
 }
 
 .navbar-brand {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: bold;
     text-decoration: none;
     color: var(--acento-principal);
 }
 
 .nav-links a {
-    color: var(--texto-claro);
+    color: var(--texto-principal);
     text-decoration: none;
     margin-left: 20px;
     padding: 5px 0;
-    transition: color 0.3s, border-bottom 0.3s;
+    transition: color 0.3s;
 }
 
 .nav-links a:hover {
     color: var(--acento-principal);
-    border-bottom: 2px solid var(--acento-principal);
 }
 
-/* --- Estructura de Contenido --- */
+/* --- Contenedor Principal y Tarjetas --- */
 .container {
     max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+    margin: 30px auto;
+    padding: 0 15px;
 }
 
-/* --- Tarjetas (Card) --- */
 .card {
-    background: var(--fondo-secundario);
-    padding: 2.5rem;
-    border-radius: 6px;
+    background: var(--fondo-tarjeta);
+    padding: 2rem;
+    border-radius: 8px;
     border: 1px solid var(--borde-delgado);
-    box-shadow: 0 0 15px var(--sombra-tecnologica);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Sombra muy suave */
+    margin-bottom: 25px;
 }
 
 h1, h2 {
-    color: var(--acento-principal);
+    color: var(--texto-principal);
     margin-bottom: 1rem;
 }
 
-/* --- Login Específico (Centrado) --- */
+/* --- Login Específico (Centrado Total) --- */
 .login-wrapper {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #e9ecef; /* Fondo ligeramente más oscuro para el login */
 }
 
 .login-card {
+    width: 100%;
     max-width: 380px;
+    text-align: center;
 }
 
-
-/* --- Formularios e Input --- */
+/* --- Formularios y Inputs --- */
 label {
     display: block;
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
-    color: var(--texto-claro);
-    font-size: 0.95rem;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-align: left;
 }
 
 input[type="text"],
-input[type="password"],
-input[type="number"],
-select {
+input[type="password"] {
     width: 100%;
-    padding: 0.75rem;
-    background: #1e242a; /* Fondo más oscuro para inputs */
-    color: var(--texto-claro);
+    padding: 10px;
     border: 1px solid var(--borde-delgado);
     border-radius: 4px;
-    transition: border-color 0.3s;
 }
 
 input:focus {
     border-color: var(--acento-principal);
     outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(31, 117, 213, 0.25); /* Efecto de enfoque suave */
 }
 
 /* --- Botones --- */
 .btn {
-    padding: 10px 20px;
+    padding: 10px 15px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     text-decoration: none;
     font-weight: bold;
-    transition: background-color 0.3s, opacity 0.3s;
-    text-transform: uppercase;
+    transition: background-color 0.3s;
 }
 
-.btn-primary { 
-    background-color: var(--acento-principal); 
-    color: var(--fondo-secundario);
-}
-.btn-primary:hover { 
-    background-color: #00939c; 
-    opacity: 0.9;
+.btn-primary {
+    background-color: var(--acento-principal);
+    color: var(--fondo-tarjeta);
 }
 
-.btn-success { background-color: var(--ok-color); }
-.btn-success:hover { background-color: #449d44; }
+.btn-primary:hover {
+    background-color: #1a60b9; 
+}
 
-.btn-warning { background-color: var(--advertencia-color); }
-.btn-warning:hover { background-color: #eea236; }
+.btn-danger {
+    background-color: var(--peligro-rojo);
+    color: var(--fondo-tarjeta);
+}
 
-.btn-danger { background-color: var(--peligro-color); }
-.btn-danger:hover { background-color: #c9302c; }
+.btn-danger:hover {
+    background-color: #c82333;
+}
 
-.btn-block { display: block; width: 100%; }
-
+.btn-block {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+}
 
 /* --- Tablas de Inventario --- */
-.table-responsive {
-    overflow-x: auto;
-}
-
 .inventory-table {
     width: 100%;
-    border-collapse: separate; /* Para poder usar border-radius */
-    border-spacing: 0;
-    margin-top: 1.5rem;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    border-radius: 6px;
-    overflow: hidden; /* Corta las esquinas de las celdas */
+    border-collapse: collapse;
+    margin-top: 15px;
+    background-color: var(--fondo-tarjeta);
+    border: 1px solid var(--borde-delgado);
 }
 
-.inventory-table th, 
+.inventory-table th,
 .inventory-table td {
-    padding: 14px 18px;
+    padding: 12px 15px;
     text-align: left;
     border-bottom: 1px solid var(--borde-delgado);
 }
 
 .inventory-table th {
-    background-color: var(--acento-principal);
-    color: var(--fondo-principal);
+    background-color: #e9ecef; /* Gris muy claro para encabezados */
+    color: var(--texto-principal);
     text-transform: uppercase;
-    font-size: 0.8rem;
-    letter-spacing: 1px;
+    font-size: 0.85rem;
 }
 
-/* Efecto cebra para legibilidad en listas largas */
+/* Regla cebra: usa el color de fondo más claro */
 .inventory-table tbody tr:nth-child(even) {
-    background-color: #333940;
+    background-color: var(--fondo-cuerpo);
 }
 
 .inventory-table tbody tr:hover {
-    background-color: #4a515a; /* Gris un poco más claro al pasar el ratón */
-    cursor: pointer;
+    background-color: #dee2e6; 
 }
 
-/* --- Badges y Alertas de Stock --- */
+/* --- Badge de Stock (Estado) --- */
 .badge {
-    padding: 4px 10px;
+    padding: 4px 8px;
     border-radius: 3px;
     font-size: 0.8rem;
     font-weight: bold;
-    color: var(--fondo-principal); /* Texto oscuro sobre el badge */
 }
-.badge-ok { background-color: var(--ok-color); }
-.badge-low { background-color: var(--advertencia-color); }
-.badge-out { background-color: var(--peligro-color); }
+
+.badge-ok {
+    background-color: var(--ok-verde);
+    color: var(--fondo-tarjeta);
+}
+
+.badge-low {
+    background-color: var(--aviso-naranja);
+    color: var(--texto-principal); 
+}
+
+.badge-out {
+    background-color: var(--peligro-rojo);
+    color: var(--fondo-tarjeta);
+}
 
 .error-msg {
-    background: var(--peligro-color);
-    color: var(--texto-claro);
+    background: #f8d7da;
+    color: var(--peligro-rojo);
     padding: 10px;
     border-radius: 4px;
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
+    margin-bottom: 15px;
+    border: 1px solid #f5c6cb;
 }
