@@ -9,8 +9,7 @@ session_start();
 // Borramos todas las variables de sesión
 $_SESSION = [];
 
-// Borramos la cookie de sesión del navegador (Esto limpia el rastro en el cliente)
-// Esto es una buena práctica de seguridad.
+// Borramos la cookie de sesión del navegador 
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
     setcookie(session_name(), '', time() - 42000,
