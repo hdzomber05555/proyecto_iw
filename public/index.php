@@ -6,17 +6,17 @@ require_once __DIR__ . '/../app/auth.php';
 
 obligar_login();
 
-// --- CONFIGURACIÓN DE PAGINACIÓN ---
+// Configuración de paginación y búsqueda
 $registros_por_pagina = 5; // Mostrar 5 productos por página
 $pagina_actual = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 if ($pagina_actual < 1) $pagina_actual = 1;
 $offset = ($pagina_actual - 1) * $registros_por_pagina;
 
-// --- CONFIGURACIÓN DE BÚSQUEDA ---
+// capturamos el término de búsqueda si existe
 $busqueda = isset($_GET['q']) ? trim($_GET['q']) : '';
 
 try {
-    // 1. CONSULTA PARA CONTAR (CORREGIDA)
+    // calculamos el total de registros que coinciden con la búsqueda
     // Usamos dos variables distintas (:q1 y :q2) aunque tengan el mismo valor
     $sql_count = "SELECT COUNT(*) FROM items WHERE nombre LIKE :q1 OR categoria LIKE :q2";
     $stmt_count = $pdo->prepare($sql_count);
@@ -28,7 +28,7 @@ try {
     
     $total_paginas = ceil($total_registros / $registros_por_pagina);
 
-    // 2. CONSULTA PARA OBTENER DATOS (CORREGIDA)
+    // Consulta para obtener datos con búsqueda y paginación
     // Aquí también separamos :q1 y :q2 para evitar el error HY093
     $sql = "SELECT * FROM items 
             WHERE nombre LIKE :q1 OR categoria LIKE :q2 

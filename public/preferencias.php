@@ -6,7 +6,7 @@ require_once __DIR__ . '/../app/csrf.php';
 
 obligar_login();
 
-//Si enviaron el formulario, guardamos la cookie
+//Si enviaron el formulario, guardamos la cookie con la preferencia elegida
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     verificar_csrf();
 
@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // setcookie(nombre, valor, expiración, ruta)
     setcookie('tema_preferido', $tema, time() + (86400 * 30), "/");
 
-    // Redirigimos al inicio para ver el cambio
+    // Redirigimos al inicio para ver el cambio inmediato
     redirect('index.php');
 }
 

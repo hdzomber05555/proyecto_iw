@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
-    // 1. Recogemos el tema que haya elegido el usuario en el login
+    // Recogemos el tema que haya elegido el usuario en el login
     $tema = $_POST['tema'] ?? 'claro';
 
     if (empty($username) || empty($password)) {
@@ -37,8 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['usuario_id'] = $usuario['id'];
             $_SESSION['username']   = $usuario['username'];
             
-            // 2. GUARDAMOS LA COOKIE AQUI MISMO
-            // Así, al entrar, ya entrará con el color que eligió en el desplegable
+            // Guardamos la cookie aqui mismo
+            // Así cuando inicie sesión, ya se verá como él quiere
             setcookie('tema_preferido', $tema, time() + (86400 * 30), "/");
 
             redirect('index.php');
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
 
     <style>
-        /* Estilos específicos del Login */
+        /*Estilos específicos del Login */
         body { 
             display: flex; 
             justify-content: center; 

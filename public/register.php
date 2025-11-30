@@ -5,7 +5,7 @@ require_once __DIR__ . '/../app/pdo.php';
 require_once __DIR__ . '/../app/utils.php';
 require_once __DIR__ . '/../app/csrf.php';
 
-// CORRECCIÓN: Solo iniciamos sesión si no está iniciada ya
+// Solo iniciamos sesión si no está iniciada ya
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -51,11 +51,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ':p' => $hash
                 ]);
 
-                // 3. NUEVO: Guardamos la preferencia de tema en la Cookie
+                // Guardamos la preferencia de tema en la Cookie
                 // Así cuando inicie sesión, ya se verá como él quiere
                 setcookie('tema_preferido', $tema, time() + (86400 * 30), "/");
 
-                // Éxito
+                // Aqui dejamos el mensaje de éxito
                 $mensaje_exito = "¡Cuenta creada con éxito! Ya puedes iniciar sesión.";
                 $username = ''; 
 
