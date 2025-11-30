@@ -1,5 +1,4 @@
 <?php
-// public/login.php
 
 require_once __DIR__ . '/../app/pdo.php';
 require_once __DIR__ . '/../app/utils.php';

@@ -1,5 +1,4 @@
 <?php
-// public/items_delete.php
 
 require_once __DIR__ . '/../app/pdo.php';
 require_once __DIR__ . '/../app/utils.php';

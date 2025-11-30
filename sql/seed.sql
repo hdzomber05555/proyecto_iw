@@ -1,11 +1,11 @@
--- Creamos la tabla usuarios
+-- creamos la tabla usuarios
 CREATE TABLE IF NOT EXISTS usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL
 );
 
--- Creamos la tabla inventario
+-- creamos la tabla inventario
 CREATE TABLE IF NOT EXISTS items (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS items (
     stock INT DEFAULT 0
 );
 
--- Crear la tabla de audiorio de borrados
+-- creamos la tabla de audiorio de borrados
 CREATE TABLE IF NOT EXISTS auditoria_borrados (
     id INT AUTO_INCREMENT PRIMARY KEY,
     item_datos TEXT NOT NULL,
@@ -22,16 +22,16 @@ CREATE TABLE IF NOT EXISTS auditoria_borrados (
     fecha_borrado DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- Limpiar datos antiguos 
+-- Limpiamos datos antiguos 
 TRUNCATE TABLE usuarios;
 TRUNCATE TABLE items;
 
--- 5. INSERTAR EL USUARIO ADMIN
+-- ponemos un usuario por defecto
 -- Usuario: admin / Contraseña: admin
 INSERT INTO usuarios (username, password) 
 VALUES ('admin', '$2y$10$xP5ZnO9YtrAWz7ytpF21z.upj1bmGtqLTfTleK.fivVR2qcoejmzK');
 
--- 6. INSERTAR ÍTEMS DE PRUEBA
+-- items de prueba
 INSERT INTO items (nombre, categoria, ubicacion, stock) VALUES 
 ('Portátil Dell', 'Informática', 'Almacén 1', 5),
 ('Ratón USB', 'Periféricos', 'Despacho 2', 10),
