@@ -1,19 +1,19 @@
-/* public/css/styles.css */
 
-/* --- DEFINICIÓN DE COLORES (Variables) --- */
+
+/*colores estandar*/
 :root {
-    /* MODO CLARO (Por defecto) */
-    --fondo-cuerpo: #f8f9fa;      /* Gris muy clarito */
-    --fondo-tarjeta: #ffffff;     /* Blanco */
-    --fondo-input: #ffffff;       /* Fondo de las cajas de texto */
-    --texto-principal: #495057;   /* Gris oscuro */
-    --borde: #dee2e6;             /* Borde suave */
+    /* MODO CLARO */
+    --fondo-cuerpo: #f8f9fa;      /* gris muy clarito */
+    --fondo-tarjeta: #ffffff;     /* blanco*/
+    --fondo-input: #ffffff;       /* cajas de texto*/
+    --texto-principal: #495057;   /* gris oscuro */
+    --borde: #dee2e6;             /* borde suave */
     
-    --azul-marca: #1f75d5;        /* Azul del menú */
+    --azul-marca: #1f75d5;        /* azul del menú barra */
     --sombra: rgba(0, 0, 0, 0.05);
 }
 
-/* --- ESTILOS GENERALES --- */
+/* Estilos generalizado*/
 body {
     font-family: 'Verdana', sans-serif;
     background-color: var(--fondo-cuerpo);
@@ -22,7 +22,7 @@ body {
     padding: 0;
 }
 
-/* --- BARRA DE NAVEGACIÓN --- */
+/* barrita de navegacion */
 .navbar {
     background-color: var(--fondo-tarjeta);
     padding: 15px 30px;
@@ -47,7 +47,7 @@ body {
     font-weight: bold;
 }
 
-/* --- TARJETA CENTRAL --- */
+/* Menu central */
 .container {
     max-width: 1100px;
     margin: 40px auto;
@@ -62,7 +62,7 @@ body {
     box-shadow: 0 4px 10px var(--sombra);
 }
 
-/* --- TABLA --- */
+/* la tabla */
 .inventory-table {
     width: 100%;
     border-collapse: collapse;
@@ -80,7 +80,7 @@ body {
     background-color: var(--borde); /* Un poco más oscuro que el fondo */
 }
 
-/* --- BOTONES Y BADGES --- */
+/* botones y accesorios */
 .btn, button { 
     padding: 10px 15px; 
     border-radius: 4px; 
@@ -91,14 +91,14 @@ body {
     cursor: pointer;
     transition: opacity 0.3s;
     
-    /* ARREGLO: El texto del botón SIEMPRE blanco */
+    /* el texto en blanco */
     color: white !important; 
 }
 
 .btn:hover, button:hover {
     opacity: 0.9;
 }
-/* Colores específicos */
+/* colores a gustos */
 .btn-primary, button[type="submit"] { 
     background-color: var(--azul-marca) !important; 
 }
@@ -107,17 +107,17 @@ body {
 }
 .btn-warning { 
     background-color: #ffc107 !important; 
-    color: #212529 !important; /* El amarillo lleva texto negro para que se lea */
+    color: #212529 !important; /* El amarillo con texto legible */
 }
 .btn-danger  { 
     background-color: #dc3545 !important; 
 }
-/* Badges (Etiquetas de stock) */
+/* Badges */
 .badge { padding: 5px 10px; border-radius: 10px; font-size: 0.8rem; font-weight: bold; color: white; }
 .badge-ok { background-color: #28a745; }
 .badge-low { background-color: #ffc107; color: black; }
 
-/* INPUTS (Para formularios) */
+/* INPUTS en los formularios*/
 input, select {
     background-color: var(--fondo-input);
     color: var(--texto-principal);
