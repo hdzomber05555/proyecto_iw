@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
 
     <style>
-        /* Usamos var(--fondo-tarjeta) en vez de #fff para que se ponga negro en modo oscuro */
+        /* var todo en blanco para los modos */
         .form-container { 
             max-width: 500px; 
             margin: 50px auto; 
@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 5px; font-weight: bold; color: var(--texto-principal); }
         
-        /* Los inputs ya cogen estilo del css/styles.css, pero aseguramos ancho */
+        /* Los inputs aseguramos ancho */
         input[type="text"], input[type="number"] { width: 100%; box-sizing: border-box; }
         
         .btn-submit { 

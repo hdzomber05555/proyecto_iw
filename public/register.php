@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
     $confirm_password = $_POST['confirm_password'] ?? '';
-    $tema = $_POST['tema'] ?? 'claro'; // Recogemos el tema elegido
+    $tema = $_POST['tema'] ?? 'claro'; // tema preferido
 
     // Validaciones básicas
     if (empty($username) || empty($password)) {
@@ -32,14 +32,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($password !== $confirm_password) {
         $error = "Las contraseñas no coinciden.";
     } else {
-        // 1. Comprobar si el usuario ya existe
+        // Comprobar si el usuario ya existe
         $stmt = $pdo->prepare("SELECT id FROM usuarios WHERE username = :u");
         $stmt->execute([':u' => $username]);
         
         if ($stmt->fetch()) {
             $error = "Ese nombre de usuario ya está cogido.";
         } else {
-            // 2. Crear el usuario
+            // Crear el usuario
             $hash = password_hash($password, PASSWORD_DEFAULT);
 
             try {
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Así cuando inicie sesión, ya se verá como él quiere
                 setcookie('tema_preferido', $tema, time() + (86400 * 30), "/");
 
-                // Aqui dejamos el mensaje de éxito
+                // Mensaje exitoso
                 $mensaje_exito = "¡Cuenta creada con éxito! Ya puedes iniciar sesión.";
                 $username = ''; 
 
