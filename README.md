@@ -33,8 +33,6 @@ El proyecto viene vacío. Para meter las tablas y el usuario administrador:
 
     Ve a la pestaña Importar.
 
-    Sube el archivo sql/schema.sql (esto crea las tablas).
-
     Sube el archivo sql/seed.sql (esto mete los datos de prueba y el admin)
 
 
